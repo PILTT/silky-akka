@@ -10,6 +10,6 @@ script: ./scripts/ci-build.sh
 env:
   global:
   - BUILD_NUMBER=$TRAVIS_BUILD_NUMBER
-  - secure: Rmx0EtLLgwjHdRWpjfzw7oSZ9/yiBv2x+hLnus6xr5qB5NMdmsBn+695AKO6EKcTMuWhJAYtZjUNJ47PENwEiZnbL+2FsIwzB9W6FOn2B5owMG0IwCqMG8S9cELxBsm6eaWnNhwuzDjsQ82ydhCfYZoc+ZI8lzTdqU64SjoZtFM=
-  - secure: ZA/lbF0O8olQliTY9KdsDcqb+gBGsQAdg4dbQ/ICu2tKHf28/cv3gyjLISGtGzRtwWABd25LsTyUejmuMcCEyHGWUSc6Jd0ZZI96J/TvVZmVixr0DRQCVRJNSv3B336Xja5NJXBcyTQ2Xi1jAQpF2+HC+wdGItUzcocFB3nBjfA=
-  - secure: i5+kimfraeBsbg0EMGT5BD5xqsRBx7D/ELqGXES4OOKHgqJ+Bra9DjlmjYeRrrlbqpBT6ARMuTluE+8nGlT99vE5oJ69DPTJ1MHWr3UFH2HnJ4/VYqViRoyj4O5DKnyvBxplOk/V+YwBU9/OaMtYYYWd+rsc7fUhxV5oiAYEd+Q=
+  - secure: fse8HJTdcP9wp7mmO2QywSvtf9upPfkgYrMfPc6OTxNy0JhHdBLICbt01ZJv/hBJJU56pYt0Z6rxCkSC4ykeuH5IdBp5PUnuK5q+XxUvj/9u+5VLwGe3ft6ZYb5c4o3dZJWt5tbgarp1A1hpREp3qZN8xf0Kn4973MppmaZ5cmM=
+  - secure: JTE/6ObbZkn5odN/inMe4PMRb766J8lWty1o8xujSCC/vHlEgQ4xWQAUUQz7Qvimk8XjKUOh7F80kScuj2aLMoZIZWjsxYEEsdWgrGoLWa0euxUBPLEJhFO6VLJFQ66CQYiL2eizP1ld0ppP8KCmQqR/iLx/P/aunbPh0c3BF84=
+  - secure: Y2xISC+kbsPY6vut5JS/JRdqo3KT9BAUcPPngrkOguFl+tariactrKENxxfOUBdDfXXZpLsjFl4q9Sc1ciPsnnus9eujrxM7k0gbjh3EGaO1hGyyf1uPc3zg/uBzQ11Uuv6ssawC/xnjXlQN0H1WO517FLxKHDbEc3YXY1Xsg18=
