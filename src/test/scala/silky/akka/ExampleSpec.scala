@@ -14,6 +14,8 @@ import silky.MessageFlowId
 import silky.akka.AuditableMessage.classificationOf
 import silky.akka.{SimpleMessageCollector ⇒ collector}
 
+@skipSpecification
+@skipInteractions
 class ExampleSpec extends TestKit(ActorSystem("GreetingSystem"))
   with SpecLike
   with MustMatchers
