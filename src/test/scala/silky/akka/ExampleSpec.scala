@@ -2,34 +2,59 @@ package silky.akka
 
 import java.lang.Thread.sleep
 
-import akka.actor.{ActorRef, ActorSystem, Props}
+import akka.actor.{ActorSystem, Props}
 import akka.testkit.TestKit
+import clairvoyance.plugins.SequenceDiagram
+import clairvoyance.scalatest.ClairvoyantContext
+import clairvoyance.scalatest.tags.{skipSpecification, skipInteractions}
 import examples.greetings.Signals.{Start, Stop}
-import examples.greetings.{GreetingActor, MainActor}
-import org.scalatest.{BeforeAndAfterAll, SpecLike}
+import examples.greetings.{GreetingActor, GreetingImplicits, MainActor}
+import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, MustMatchers, SpecLike}
+import silky.MessageFlowId
+import silky.akka.AuditableMessage.classificationOf
+import silky.akka.{SimpleMessageCollector ⇒ collector}
 
-class ExampleSpec extends TestKit(ActorSystem("GreetingSystem")) with SpecLike with BeforeAndAfterAll {
+@skipSpecification
+@skipInteractions
+class ExampleSpec extends TestKit(ActorSystem("GreetingSystem"))
+  with SpecLike
+  with MustMatchers
+  with ClairvoyantContext
+  with SequenceDiagram
+  with BeforeAndAfterEach
+  with BeforeAndAfterAll {
 
-  val greetingTranslator = system.actorOf(Props(classOf[GreetingActor]), name = "GreetingTranslator")
-  val mainActor = system.actorOf(Props(classOf[MainActor], greetingTranslator), name = "MainActor")
+  GreetingImplicits.addExtractors()
+  MessageCollector uses SimpleMessageCollector
 
-  override protected def afterAll(): Unit = system.shutdown()
+  val greetingActor = system.actorOf(Props(classOf[GreetingActor]), name = classOf[GreetingActor].getSimpleName)
+  val mainActor = system.actorOf(Props(classOf[MainActor], greetingActor), name = classOf[MainActor].getSimpleName)
+
+  override def capturedInputsAndOutputs = Seq(this)
+
+  override protected def afterEach() = {
+    collector.audit()
+    collector.clear()
+  }
+
+  override protected def afterAll() = system.shutdown()
 
   object `Silky Akka` {
+    val conversationId1 = "conversation #1"
+    val conversationId2 = "conversation #2"
+
     def `captures Akka message flows` {
-      sendTo(mainActor, message = Start)
-      sendTo(mainActor, message = Stop)
+      mainActor ! Start(conversationId = conversationId1); snooze()
+      mainActor ! Start(conversationId = conversationId2); snooze()
+      mainActor !  Stop(conversationId = conversationId2); snooze()
+      mainActor !  Stop(conversationId = conversationId1); snooze()
 
-      sendTo(mainActor, message = Start)
-      sendTo(mainActor, message = Stop)
+      collector.messagesFor(MessageFlowId(conversationId1)) must have size 2
+      collector.messagesFor(MessageFlowId(conversationId2)) must have size 2
 
-      sleep(1000L)
-      MessageCollector.logMessages()
+      collector.messages.foreach(m ⇒ captureValue(s"${classificationOf(m.payload)} from ${m.from} to ${m.to}", m.payload))
     }
   }
 
-  private def sendTo(actor: ActorRef, message: AnyRef): Unit = {
-    actor ! message
-    sleep(100L)
-  }
+  private def snooze(): Unit = sleep(100L)
 }

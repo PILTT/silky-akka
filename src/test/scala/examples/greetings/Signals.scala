@@ -2,8 +2,8 @@ package examples.greetings
 
 object Signals {
 
-  sealed trait Signal
+  sealed trait Signal { val conversationId: String }
 
-  case object Start extends Signal
-  case object Stop  extends Signal
+  case class Start(conversationId: String) extends Signal
+  case class Stop(conversationId: String)  extends Signal
 }

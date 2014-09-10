@@ -1,17 +1,29 @@
 package examples.greetings
 
 import examples.greetings.Greetings._
+import silky.MessageFlowId
 import silky.akka.AuditableMessage
+import silky.akka.AuditableMessage.addExtractorFor
 
 object GreetingImplicits {
 
+  def addExtractors(): Unit = {
+    addExtractorFor(AuditableHello)
+    addExtractorFor(AuditableGoodbye)
+  }
+
   implicit object AuditableHello extends AuditableMessage[Hello] {
-    def messageFlowId(message: Hello) = conversationIdOf(message.subject)
+    def classify      = (message: Hello) ⇒ classificationOf(message)
+    def messageFlowId = (message: Hello) ⇒ messageFlowIdOf(message.subject)
   }
 
   implicit object AuditableGoodbye extends AuditableMessage[Goodbye] {
-    def messageFlowId(message: Goodbye) = conversationIdOf(message.subject)
+    def classify      = (message: Goodbye) ⇒ classificationOf(message)
+    def messageFlowId = (message: Goodbye) ⇒ messageFlowIdOf(message.subject)
   }
 
-  private def conversationIdOf(subject: String): String = """(?<=[ conversationId: ).+(?= ])""".r.findAllIn(subject).group(1)
+  private def classificationOf(message: Greeting): Option[String] = Some(message.getClass.getSimpleName)
+
+  private def messageFlowIdOf(subject: String): Option[MessageFlowId] =
+    """(?<=\[ conversationId: ).+(?= \])""".r.findFirstIn(subject).map(MessageFlowId(_))
 }

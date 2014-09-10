@@ -1,17 +1,19 @@
 package silky.akka
 
 import silky.MessageFlowId
-import silky.audit.{Slf4jMessageAuditor, Formatter, AuditMessage}
+import silky.audit.AuditMessage
 
-import scala.collection.mutable
+trait MessageCollector {
+  def +=(messageFlowId: MessageFlowId, message: AuditMessage): Unit
+}
+
+object NoOpMessageCollector extends MessageCollector {
+  def +=(messageFlowId: MessageFlowId, message: AuditMessage) = ()
+}
 
 object MessageCollector {
-  private val auditor = new Slf4jMessageAuditor("audit", new Formatter)
-  private val auditMessages = new mutable.HashSet[AuditMessage]()
+  private[this] var instance: MessageCollector = NoOpMessageCollector
 
-  def +=(message: AuditMessage): Unit = auditMessages += message
-
-  def messages: Set[AuditMessage] = auditMessages.toSeq.sortBy(x ⇒ x.timestamp).toSet
-
-  def logMessages(): Unit = messages.foreach { m ⇒ auditor.audit(MessageFlowId.makeOneUp.get, m) }
+  def uses(messageCollector: MessageCollector): Unit = instance = messageCollector
+  lazy val messageCollector: MessageCollector = instance
 }
