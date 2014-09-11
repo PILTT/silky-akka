@@ -14,8 +14,9 @@ object SimpleMessageCollector extends MessageCollector {
   def clear(): Unit = auditMessages.clear()
 
   implicit val messageOrdering: Ordering[AuditMessage] = Ordering.by((_: AuditMessage).timestamp)
-  def messagesFor(messageFlowId: MessageFlowId): SortedSet[AuditMessage] = auditMessages(messageFlowId).to[SortedSet]
   def messages: SortedSet[AuditMessage] = auditMessages.values.flatten.to[SortedSet]
+  def messagesFor(messageFlowId: MessageFlowId): SortedSet[AuditMessage] =
+    auditMessages.getOrElse(messageFlowId, mutable.HashSet.empty[AuditMessage]).to[SortedSet]
 
   def audit(): Unit = auditMessages.keys.foreach { id ⇒ messagesFor(id) foreach { m ⇒ auditor.audit(id, m) } }
 }

@@ -7,6 +7,7 @@ import akka.testkit.TestKit
 import clairvoyance.plugins.SequenceDiagram
 import clairvoyance.scalatest.ClairvoyantContext
 import clairvoyance.scalatest.tags.{skipSpecification, skipInteractions}
+import com.typesafe.config.{ConfigFactory, ConfigValueFactory}
 import examples.greetings.Signals.{Start, Stop}
 import examples.greetings.{GreetingActor, GreetingImplicits, MainActor}
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, MustMatchers, SpecLike}
@@ -16,7 +17,11 @@ import silky.akka.{SimpleMessageCollector ⇒ collector}
 
 @skipSpecification
 @skipInteractions
-class ExampleSpec extends TestKit(ActorSystem("GreetingSystem"))
+class ExampleSpec extends TestKit(
+  ActorSystem(
+    name   = "GreetingSystem",
+    config = ConfigFactory.empty().withValue("akka.actor.auditing-receive", ConfigValueFactory.fromAnyRef(true))
+  ))
   with SpecLike
   with MustMatchers
   with ClairvoyantContext
