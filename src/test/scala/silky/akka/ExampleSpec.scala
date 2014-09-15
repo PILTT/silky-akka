@@ -10,7 +10,7 @@ import clairvoyance.scalatest.tags.{skipSpecification, skipInteractions}
 import com.typesafe.config.{ConfigFactory, ConfigValueFactory}
 import examples.greetings.Signals.{Start, Stop}
 import examples.greetings.{GreetingActor, GreetingImplicits, MainActor}
-import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, MustMatchers, SpecLike}
+import org.scalatest.{BeforeAndAfterAll, MustMatchers, SpecLike}
 import silky.MessageFlowId
 import silky.akka.AuditableMessage.classificationOf
 import silky.akka.{SimpleMessageCollector ⇒ collector}
@@ -26,7 +26,6 @@ class ExampleSpec extends TestKit(
   with MustMatchers
   with ClairvoyantContext
   with SequenceDiagram
-  with BeforeAndAfterEach
   with BeforeAndAfterAll {
 
   GreetingImplicits.addExtractors()
@@ -37,7 +36,8 @@ class ExampleSpec extends TestKit(
 
   override def capturedInputsAndOutputs = Seq(this)
 
-  override protected def afterEach() = {
+  override protected def afterExecution(testName: String) = {
+    collector.messages.foreach(m ⇒ captureValue(s"${classificationOf(m.payload)} from ${m.from} to ${m.to}", m.payload))
     collector.audit()
     collector.clear()
   }
@@ -56,8 +56,6 @@ class ExampleSpec extends TestKit(
 
       collector.messagesFor(MessageFlowId(conversationId1)) must have size 2
       collector.messagesFor(MessageFlowId(conversationId2)) must have size 2
-
-      collector.messages.foreach(m ⇒ captureValue(s"${classificationOf(m.payload)} from ${m.from} to ${m.to}", m.payload))
     }
   }
 
