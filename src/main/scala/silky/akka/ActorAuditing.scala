@@ -9,7 +9,7 @@ import silky.akka.AuditableMessage.messageFlowIdOf
 import silky.akka.MessageCollector.messageCollector
 import silky.audit.AuditMessage
 
-trait AuditedActor extends Actor {
+trait ActorAuditing extends Actor {
 
   override def aroundReceive(receive: Receive, message: Any): Unit = {
     super.aroundReceive(receive, message)
