@@ -29,6 +29,7 @@ class ExampleSpec extends TestKit(
   with BeforeAndAfterAll {
 
   GreetingImplicits.addExtractors()
+  AuditStrategy is AuditMessagesFromUserAndRemoteActors
   MessageCollector uses SimpleMessageCollector
 
   val greetingActor = system.actorOf(Props(classOf[GreetingActor]), name = classOf[GreetingActor].getSimpleName)
