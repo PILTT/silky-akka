@@ -23,14 +23,14 @@ resolvers ++= Seq(
 graphSettings
 
 libraryDependencies <<= scalaVersion { scala_version ⇒ Seq(
-    "com.github.piltt" %% "silky" % "1.0.12",
+    "com.github.piltt" %% "silky" % "1.0.14",
     "com.typesafe.akka" %% "akka-actor" % "2.3.5",
     "com.typesafe.akka" %% "akka-testkit" % "2.3.5" % "test",
     "org.apache.logging.log4j" % "log4j-api" % "2.0.1" % "test",
     "org.apache.logging.log4j" % "log4j-core" % "2.0.1" % "test",
     "org.apache.logging.log4j" % "log4j-slf4j-impl" % "2.0.1" % "test",
     "org.scalatest" %% "scalatest" % "2.2.1" % "test",
-    "com.github.rhyskeepence" %% "clairvoyance-scalatest" % "1.0.93" % "test"
+    "com.github.rhyskeepence" %% "clairvoyance-scalatest" % "1.0.97" % "test"
   ) ++ (
     CrossVersion.partialVersion(scala_version) match {
       case Some((2, scalaMajor)) if scalaMajor >= 11 ⇒ Seq("org.scala-lang.modules" %% "scala-xml" % "1.0.2")
