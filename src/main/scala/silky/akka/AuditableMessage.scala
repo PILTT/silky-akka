@@ -12,6 +12,7 @@ import scala.reflect.{ClassTag, classTag}
 trait AuditableMessage[T] {
   def classify:      T ⇒ Option[String]
   def messageFlowId: T ⇒ Option[MessageFlowId]
+  def format:        T ⇒ Option[String] = message ⇒ None
 }
 
 object AuditableMessage {
@@ -26,6 +27,9 @@ object AuditableMessage {
   def messageFlowIdOf(message: Any): MessageFlowId =
     extract(extractor ⇒ extractor.instance.messageFlowId(message.asInstanceOf[extractor.Type]), message,
       defaultValue = MessageFlowId(randomUUID().toString))
+
+  def format(message: AnyRef): AnyRef =
+    extract(extractor ⇒ extractor.instance.format(message.asInstanceOf[extractor.Type]), message, defaultValue = message)
 
   private def extract[V](f: Extractor ⇒ Option[V], message: Any, defaultValue: V): V =
     extractors.find(_.clazz isAssignableFrom message.getClass).flatMap(f).getOrElse(defaultValue)

@@ -12,7 +12,7 @@ import examples.greetings.Signals.{Start, Stop}
 import examples.greetings.{GreetingActor, GreetingImplicits, MainActor}
 import org.scalatest.{BeforeAndAfterAll, MustMatchers, SpecLike}
 import silky.MessageFlowId
-import silky.akka.AuditableMessage.classificationOf
+import silky.akka.AuditableMessage.{classificationOf, format}
 import silky.akka.{SimpleMessageCollector ⇒ collector}
 
 @skipSpecification
@@ -38,7 +38,7 @@ class ExampleSpec extends TestKit(
   override def capturedInputsAndOutputs = Seq(this)
 
   override protected def afterExecution(testName: String) = {
-    collector.messages.foreach(m ⇒ captureValue(s"${classificationOf(m.payload)} from ${m.from} to ${m.to}", m.payload))
+    collector.messages.foreach(m ⇒ captureValue(s"${classificationOf(m.payload)} from ${m.from} to ${m.to}", format(m.payload)))
     collector.audit()
     collector.clear()
   }
