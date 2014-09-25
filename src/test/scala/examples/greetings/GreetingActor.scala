@@ -1,7 +1,6 @@
 package examples.greetings
 
 import akka.actor.Actor
-import examples.greetings.Greetings.{Goodbye, Hello}
 import silky.akka.ActorAuditing
 
 class GreetingActor extends Actor with ActorAuditing {

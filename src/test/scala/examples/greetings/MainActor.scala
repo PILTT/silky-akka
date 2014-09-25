@@ -1,7 +1,6 @@
 package examples.greetings
 
 import akka.actor.{Actor, ActorRef}
-import examples.greetings.Greetings.{Goodbye, Hello}
 import examples.greetings.Signals.{Start, Stop}
 import silky.akka.ActorAuditing
 
