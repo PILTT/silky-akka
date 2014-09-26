@@ -20,9 +20,9 @@ object AuditableMessage {
 
   def addExtractorFor[T : ClassTag](instance: AuditableMessage[T]): Unit = extractors :+= Extractor(instance)
 
-  def classificationOf(message: Any): String =
+  def classificationOf(message: Any, default: String = "Unknown"): String =
     extract(extractor ⇒ extractor.instance.classify(message.asInstanceOf[extractor.Type]), message,
-      defaultValue = "Unknown")
+      defaultValue = default)
 
   def messageFlowIdOf(message: Any): MessageFlowId =
     extract(extractor ⇒ extractor.instance.messageFlowId(message.asInstanceOf[extractor.Type]), message,
