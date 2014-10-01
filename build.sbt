@@ -23,7 +23,7 @@ resolvers ++= Seq(
 graphSettings
 
 libraryDependencies <<= scalaVersion { scala_version ⇒ Seq(
-    "com.github.piltt" %% "silky" % "1.0.18",
+    "com.github.piltt" %% "silky" % "1.0.21",
     "com.typesafe.akka" %% "akka-actor" % "2.3.5",
     "com.typesafe.akka" %% "akka-testkit" % "2.3.5" % "test",
     "org.apache.logging.log4j" % "log4j-api" % "2.0.1" % "test",
