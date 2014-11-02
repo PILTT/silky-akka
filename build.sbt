@@ -24,8 +24,8 @@ graphSettings
 
 libraryDependencies <<= scalaVersion { scala_version ⇒ Seq(
     "com.github.piltt" %% "silky" % "1.0.23",
-    "com.typesafe.akka" %% "akka-actor" % "2.3.5",
-    "com.typesafe.akka" %% "akka-testkit" % "2.3.5" % "test",
+    "com.typesafe.akka" %% "akka-actor" % "2.3.6",
+    "com.typesafe.akka" %% "akka-testkit" % "2.3.6" % "test",
     "org.apache.logging.log4j" % "log4j-api" % "2.0.1" % "test",
     "org.apache.logging.log4j" % "log4j-core" % "2.0.1" % "test",
     "org.apache.logging.log4j" % "log4j-slf4j-impl" % "2.0.1" % "test",
