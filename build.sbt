@@ -26,9 +26,9 @@ libraryDependencies <<= scalaVersion { scala_version ⇒ Seq(
     "com.github.piltt" %% "silky" % "1.0.23",
     "com.typesafe.akka" %% "akka-actor" % "2.3.6",
     "com.typesafe.akka" %% "akka-testkit" % "2.3.6" % "test",
-    "org.apache.logging.log4j" % "log4j-api" % "2.0.1" % "test",
-    "org.apache.logging.log4j" % "log4j-core" % "2.0.1" % "test",
-    "org.apache.logging.log4j" % "log4j-slf4j-impl" % "2.0.1" % "test",
+    "org.apache.logging.log4j" % "log4j-api" % "2.1" % "test",
+    "org.apache.logging.log4j" % "log4j-core" % "2.1" % "test",
+    "org.apache.logging.log4j" % "log4j-slf4j-impl" % "2.1" % "test",
     "org.scalatest" %% "scalatest" % "2.2.1" % "test",
     "com.github.rhyskeepence" %% "clairvoyance-scalatest" % "1.0.102" % "test"
   ) ++ (
