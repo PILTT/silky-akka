@@ -1,9 +1,8 @@
-language: scala
-scala:
-- 2.10.6
-jdk:
-- oraclejdk7
+# use container-based infrastructure
 sudo: false
+language: scala
+scala: 2.10.6
+jdk: oraclejdk7
 
 before_script: ./scripts/prepublish.sh
 script:        ./scripts/ci-build.sh
@@ -16,6 +15,12 @@ env:
   - secure: JTE/6ObbZkn5odN/inMe4PMRb766J8lWty1o8xujSCC/vHlEgQ4xWQAUUQz7Qvimk8XjKUOh7F80kScuj2aLMoZIZWjsxYEEsdWgrGoLWa0euxUBPLEJhFO6VLJFQ66CQYiL2eizP1ld0ppP8KCmQqR/iLx/P/aunbPh0c3BF84=
   - secure: Y2xISC+kbsPY6vut5JS/JRdqo3KT9BAUcPPngrkOguFl+tariactrKENxxfOUBdDfXXZpLsjFl4q9Sc1ciPsnnus9eujrxM7k0gbjh3EGaO1hGyyf1uPc3zg/uBzQ11Uuv6ssawC/xnjXlQN0H1WO517FLxKHDbEc3YXY1Xsg18=
   - secure: mfa9PEt7Ft40fN8RqdwnzMlvL/wxzPX+nkb1+/ccyeL0tj61/Szeq8/iZVHToOq/QjXF+rSfEwKJAmEvnVjlPxobozpAG6OF3BMmiRBP7jHQm7BWVbyiDYmc+2hj1lmXXKj3Z8hevzq+abQYILSID1d9fafcB9628xXQZzGHdPY=
+
+# directories cached to S3 at the end of the build
+cache:
+  directories:
+    - $HOME/.ivy2/cache
+    - $HOME/.sbt/boot/
 
 notifications:
   webhooks:
