@@ -1,13 +1,13 @@
 resolvers     += Resolver.sonatypeRepo("releases")
 updateOptions := updateOptions.value.withCachedResolution(cachedResoluton = true)
 
-val log4jVersion = "2.4.1"
-val slf4jVersion = "1.7.12"
+val log4jVersion = "[2.0.1,2.9.99]"
+val slf4jVersion = "[1.7.0,1.9.99]"
 val akkaVersion  = "[2.3.5,2.4.99]"
 
 val slf4j = Seq(
-  "org.slf4j" % "slf4j-api" % slf4jVersion,
-  "org.slf4j" % "slf4j-ext" % slf4jVersion
+  "org.slf4j" % "slf4j-api" % slf4jVersion % "provided",
+  "org.slf4j" % "slf4j-ext" % slf4jVersion % "provided"
 )
 
 val log4j = Seq(
@@ -18,12 +18,12 @@ val log4j = Seq(
   "com.fasterxml.jackson.dataformat" % "jackson-dataformat-yaml" % "2.6.2" % "test" exclude("org.yaml", "snakeyaml")
 )
 
-val productionDependencies = slf4j ++ log4j ++ Seq(
-  "com.github.piltt"  %% "silky"      % "1.0.42",
+val productionDependencies = slf4j ++ Seq(
+  "com.github.piltt"  %% "silky"      % "[1.0.11,1.9.999]",
   "com.typesafe.akka" %% "akka-actor" % akkaVersion % "provided"
 )
 
-val testDependencies = Seq(
+val testDependencies = log4j ++ Seq(
   "com.github.rhyskeepence" %% "clairvoyance-scalatest" % "1.0.108" % "test",
   "com.typesafe.akka" %% "akka-testkit" % akkaVersion  % "test",
   "org.scalatest"     %% "scalatest"    % "3.0.0-M11"  % "test"
