@@ -7,11 +7,11 @@ Akka extension for tracing message flows within a system of actors
 
 ## SBT usage
 
-```
-libraryDependencies += "com.github.piltt" %% "silky-akka" % "1.0.38"
+```scala
+libraryDependencies += "com.github.piltt" %% "silky-akka" % <latest-version>
 ```
 
-[<img src="https://img.shields.io/maven-central/v/com.github.piltt/silky-akka_2.10*.svg?label=latest%20release%20for%202.10"/>](http://search.maven.org/#search%7Cga%7C1%7Cg%3Acom.github.piltt%20a%3Asilky-akka_2.10) [<img src="https://img.shields.io/maven-central/v/com.github.piltt/silky-akka_2.11*.svg?label=latest%20release%20for%202.11"/>](http://search.maven.org/#search%7Cga%7C1%7Cg%3Acom.github.piltt%20a%3Asilky-akka_2.11)
+[<img src="https://img.shields.io/maven-central/v/com.github.piltt/silky-akka_2.10*.svg?label=latest%20version%20for%202.10"/>](http://search.maven.org/#search%7Cga%7C1%7Cg%3Acom.github.piltt%20a%3Asilky-akka_2.10) [<img src="https://img.shields.io/maven-central/v/com.github.piltt/silky-akka_2.11*.svg?label=latest%20version%20for%202.11"/>](http://search.maven.org/#search%7Cga%7C1%7Cg%3Acom.github.piltt%20a%3Asilky-akka_2.11)
 
 ## Contributing
 
