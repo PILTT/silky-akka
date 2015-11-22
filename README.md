@@ -1,7 +1,7 @@
 silky-akka
 =====
 
-Akka extension for tracing message flows within a system of actors
+Akka extension for tracing message flows within a system of Scala actors
 
 [![Build Status](https://secure.travis-ci.org/PILTT/silky-akka.svg)](http://travis-ci.org/PILTT/silky-akka) [![Coverage Status](https://coveralls.io/repos/PILTT/silky-akka/badge.svg?branch=master&service=github)](https://coveralls.io/github/PILTT/silky-akka?branch=master) [![codecov.io](https://codecov.io/github/PILTT/silky-akka/coverage.svg?branch=master)](https://codecov.io/github/PILTT/silky-akka?branch=master&view=all)
 
