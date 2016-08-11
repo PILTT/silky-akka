@@ -6,11 +6,11 @@ import akka.actor.{ActorSystem, Props}
 import akka.testkit.TestKit
 import clairvoyance.plugins.SequenceDiagram
 import clairvoyance.scalatest.ClairvoyantContext
-import clairvoyance.scalatest.tags.{skipSpecification, skipInteractions}
+import clairvoyance.scalatest.tags.{skipInteractions, skipSpecification}
 import com.typesafe.config.{ConfigFactory, ConfigValueFactory}
 import examples.greetings.Signals.{Start, Stop}
 import examples.greetings.{GreetingActor, GreetingImplicits, MainActor}
-import org.scalatest.{BeforeAndAfterAll, MustMatchers, SpecLike}
+import org.scalatest.{BeforeAndAfterAll, MustMatchers, WordSpecLike}
 import silky.MessageFlowId
 import silky.akka.AuditableMessage.{classificationOf, format}
 import silky.akka.{SimpleMessageCollector ⇒ collector}
@@ -22,7 +22,7 @@ class ExampleSpec extends TestKit(
     name   = "GreetingSystem",
     config = ConfigFactory.empty().withValue("akka.actor.auditing-receive", ConfigValueFactory.fromAnyRef(true))
   ))
-  with SpecLike
+  with WordSpecLike
   with MustMatchers
   with ClairvoyantContext
   with SequenceDiagram
@@ -45,11 +45,11 @@ class ExampleSpec extends TestKit(
 
   override protected def afterAll() = system.shutdown()
 
-  object `Silky Akka` {
+  "silky-akka" can {
     val conversationId1 = "conversation #1"
     val conversationId2 = "conversation #2"
 
-    def `captures Akka message flows` {
+    "capture Akka message flows" in {
       mainActor ! Start(conversationId = conversationId1); snooze()
       mainActor ! Start(conversationId = conversationId2); snooze()
       mainActor !  Stop(conversationId = conversationId2); snooze()
