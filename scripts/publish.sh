@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-pip install --user codecov && codecov
+bash <(curl -s https://codecov.io/bash)
 sbt coveralls clean compile "+ publishSigned" sonatypeReleaseAll
